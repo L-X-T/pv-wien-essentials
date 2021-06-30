@@ -24,6 +24,11 @@ export class FlightSearchComponent implements OnInit, OnDestroy {
 
   onDestroySubject = new Subject<void>();
 
+  basket: object = {
+    '3': true,
+    '5': true
+  };
+
   constructor(private flightService: FlightService) {}
 
   ngOnInit(): void {}
