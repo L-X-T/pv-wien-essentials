@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 
 import { Flight } from '../../entities/flight';
 import { FlightService } from './flight.service';
@@ -10,7 +10,7 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css']
 })
-export class FlightSearchComponent implements OnInit, OnDestroy {
+export class FlightSearchComponent implements OnDestroy {
   from = 'Graz';
   to = 'Hamburg';
 
@@ -24,14 +24,12 @@ export class FlightSearchComponent implements OnInit, OnDestroy {
 
   onDestroySubject = new Subject<void>();
 
-  basket: object = {
-    '3': true,
-    '5': true
+  basket: Record<number, boolean> = {
+    3: true,
+    5: true
   };
 
   constructor(private flightService: FlightService) {}
-
-  ngOnInit(): void {}
 
   search(): void {
     // 1. my observable
@@ -41,7 +39,7 @@ export class FlightSearchComponent implements OnInit, OnDestroy {
     const flightsObserver: Observer<Flight[]> = {
       next: (flights) => (this.flights = flights),
       error: (errResp) => console.error('Error loading flights', errResp),
-      complete: () => console.debug('complete')
+      complete: () => console.log('complete')
     };
 
     // 3. my subscription
