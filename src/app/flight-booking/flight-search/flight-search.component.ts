@@ -7,6 +7,8 @@ import { Observable, Observer, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { pattern } from '../../shared/global';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'flight-search',
   templateUrl: './flight-search.component.html',
@@ -33,7 +35,7 @@ export class FlightSearchComponent implements OnDestroy {
     5: true
   };
 
-  constructor(private flightService: FlightService) {}
+  constructor(private flightService: FlightService, private router: Router) {}
 
   search(): void {
     // 1. my observable
@@ -78,5 +80,9 @@ export class FlightSearchComponent implements OnDestroy {
     // console.log(updatedFlight);
 
     this.flights = this.flights.map((flight) => (flight.id === updatedFlight.id ? updatedFlight : flight));
+  }
+
+  onEdit(id: number) {
+    this.router.navigate(['/flight-edit', id, { showDetails: true }]);
   }
 }
