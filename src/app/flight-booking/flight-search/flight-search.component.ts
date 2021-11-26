@@ -2,8 +2,10 @@ import { Component, OnDestroy } from '@angular/core';
 
 import { Flight } from '../../entities/flight';
 import { FlightService } from './flight.service';
+
 import { Observable, Observer, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { pattern } from '../../shared/global';
 
 @Component({
   selector: 'flight-search',
@@ -20,6 +22,7 @@ export class FlightSearchComponent implements OnDestroy {
 
   selectedFlight: Flight;
   flightToEdit: Flight;
+  pattern = pattern;
 
   message: string;
 
