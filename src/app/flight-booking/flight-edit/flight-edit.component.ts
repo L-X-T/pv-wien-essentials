@@ -4,6 +4,7 @@ import { FlightService } from '../flight-search/flight.service';
 import { Flight } from '../../entities/flight';
 import { validateCity } from '../shared/validation/city-validator';
 import { validateRoundTrip } from '../shared/validation/round-trip-validator';
+import { pattern } from '../../shared/global';
 
 @Component({
   selector: 'flight-edit',
@@ -16,6 +17,7 @@ export class FlightEditComponent implements OnChanges, OnInit {
   @Output() flightChange = new EventEmitter<Flight>();
 
   editForm: FormGroup;
+  pattern = pattern;
 
   message = '';
 
@@ -32,11 +34,23 @@ export class FlightEditComponent implements OnChanges, OnInit {
       id: [1, [Validators.required]],
       from: [
         '',
-        [Validators.required, Validators.minLength(3), Validators.maxLength(15), validateCity(['Graz', 'Wien', 'Hamburg', 'Berlin'])]
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(15),
+          Validators.pattern(this.pattern),
+          validateCity(['Graz', 'Wien', 'Hamburg', 'Berlin'])
+        ]
       ],
       to: [
         '',
-        [Validators.required, Validators.minLength(3), Validators.maxLength(15), validateCity(['Graz', 'Wien', 'Hamburg', 'Berlin'])]
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(15),
+          Validators.pattern(this.pattern),
+          validateCity(['Graz', 'Wien', 'Hamburg', 'Berlin'])
+        ]
       ],
       date: ['', [Validators.required, Validators.minLength(33), Validators.maxLength(33)]]
     });
